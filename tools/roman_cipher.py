@@ -1,8 +1,21 @@
 content = input("input:").upper()
-shift = int(input("shift:"))
-
+bruteforce = bool(input("bruteforce:").lower() == "true")
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-output = ""
-for char in content:
-    output += alphabet[alphabet.index(char)+shift]
-print(output)
+
+
+def shift_word(word, shift):
+    output = ""
+    for char in word:
+        output += (
+            alphabet[(alphabet.index(char) + shift) % len(alphabet)]
+            if char in alphabet
+            else char
+        )
+    return output
+
+
+if not bruteforce:
+    print(shift_word(content, int(input("shift:"))))
+else:
+    for shift in range(0, 26):
+        print(shift_word(content, shift))
